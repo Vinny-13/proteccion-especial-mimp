@@ -1,0 +1,6 @@
+resource_group_name = "rg-mimp-proteccion"
+location            = "eastus"
+server_name         = "mimp-proteccion-<identificador-unico>"
+database_name       = "mimp_proteccion"
+db_admin_username   = "mimpadmin"
+# No guardes la contraseña en este archivo; usa TF_VAR_db_admin_password o GitHub Secrets.

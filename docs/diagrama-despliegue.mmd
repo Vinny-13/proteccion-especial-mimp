@@ -1,0 +1,21 @@
+flowchart LR
+    Source[Datos Abiertos MIMP CSV]
+    Repo[Repositorio GitHub]
+    Infra[GitHub Actions\ninfra.yml]
+    TF[Terraform]
+    Azure[(Azure Resource Group)]
+    PG[(PostgreSQL Flexible Server)]
+    Setup[GitHub Actions\nsetup.yml]
+    LB[Liquibase]
+    PBID[Power BI Desktop]
+    PBI[Power BI Service\ndeploy.yml]
+    User[Usuario / docente]
+
+    Source -->|descarga y normalización| Setup
+    Repo --> Infra
+    Infra --> TF --> Azure --> PG
+    Repo --> Setup
+    Setup --> LB --> PG
+    PG --> PBID
+    PBID -->|ProteccionEspecial.pbix| Repo
+    Repo --> PBI --> User

@@ -1,0 +1,23 @@
+# Local data downloaded directly from Datos Abiertos.
+data/source/
+
+# Local secrets and Terraform state.
+.env
+.env.*
+!.env.example
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/*.tfplan
+infra/crash.log
+
+# Power BI local/cache artifacts.
+powerbi/.pbi/
+powerbi/.tmp/
+*.pbi-tools.json
+
+# Python and editor artifacts.
+__pycache__/
+*.py[cod]
+.vscode/
+.idea/

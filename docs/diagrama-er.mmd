@@ -1,0 +1,42 @@
+erDiagram
+    DIM_GEOGRAPHY ||--o{ DIM_CENTER : ubigeo
+    DIM_SERVICE ||--o{ DIM_CENTER : servicio
+    DIM_CENTER ||--o{ FACT_ADMISSIONS : centro
+    STG_PROTECCION_ESPECIAL }o..|| DIM_GEOGRAPHY : normaliza
+    STG_PROTECCION_ESPECIAL }o..|| DIM_SERVICE : normaliza
+
+    DIM_GEOGRAPHY {
+        varchar ubigeo PK
+        text department
+        text province
+        text district
+    }
+    DIM_SERVICE {
+        bigint service_key PK
+        text entity_code
+        text line_code
+        text service_code
+        text service_name
+    }
+    DIM_CENTER {
+        bigint center_key PK
+        text center_code
+        bigint service_key FK
+        varchar ubigeo FK
+        text center_name
+    }
+    FACT_ADMISSIONS {
+        bigint admission_key PK
+        int report_year
+        date report_date
+        bigint center_key FK
+        int total_nna
+        int male_nna
+        int female_nna
+    }
+    STG_PROTECCION_ESPECIAL {
+        text report_year
+        text center_code
+        text total_nna
+        text source_snapshot
+    }

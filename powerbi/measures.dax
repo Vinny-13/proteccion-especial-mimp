@@ -1,0 +1,29 @@
+-- Tabla principal: vw_admissions_flat
+Total NNA = SUM(vw_admissions_flat[total_nna])
+
+NNA hombres = SUM(vw_admissions_flat[male_nna])
+
+NNA mujeres = SUM(vw_admissions_flat[female_nna])
+
+% mujeres = DIVIDE([NNA mujeres], [Total NNA], 0)
+
+NNA 0-5 = SUM(vw_admissions_flat[age_0_5_total])
+
+NNA 6-11 = SUM(vw_admissions_flat[age_6_11_total])
+
+NNA 12-17 = SUM(vw_admissions_flat[age_12_17_total])
+
+NNA 18+ = SUM(vw_admissions_flat[age_18_plus_total])
+
+Promedio NNA por centro = AVERAGEX(
+    VALUES(vw_admissions_flat[center_code]),
+    [Total NNA]
+)
+
+Total NNA año anterior = CALCULATE(
+    [Total NNA],
+    REMOVEFILTERS(vw_admissions_flat[report_year]),
+    vw_admissions_flat[report_year] = MAX(vw_admissions_flat[report_year]) - 1
+)
+
+Variación interanual = [Total NNA] - [Total NNA año anterior]

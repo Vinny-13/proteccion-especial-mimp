@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-load-staging
+      author: mimp-data-team
+      changes:
+        - loadData:
+            file: ${dataFile}
+            tableName: stg_proteccion_especial
+            schemaName: mimp
+            separator: ","
+            quotchar: '"'
+            encoding: UTF-8

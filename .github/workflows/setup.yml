@@ -1,0 +1,102 @@
+name: Setup - Liquibase y datos MIMP
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Infraestructura - Terraform"]
+    types: [completed]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  setup:
+    name: Crear esquema y cargar datos
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    env:
+      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || 'rg-mimp-proteccion' }}
+      AZURE_DB_SERVER_NAME: ${{ vars.AZURE_DB_SERVER_NAME }}
+      DB_NAME: ${{ vars.DB_NAME || 'mimp_proteccion' }}
+      DB_ADMIN_USERNAME: ${{ vars.DB_ADMIN_USERNAME || 'mimpadmin' }}
+      DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+      DATASET_URL: https://www.datosabiertos.gob.pe/sites/default/files/1.3.1%20BdD_Proteccion%20Especial_10.csv
+      DATASET_SNAPSHOT_LABEL: ${{ vars.DATASET_SNAPSHOT_LABEL || '2025-09' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Permitir temporalmente el runner en PostgreSQL
+        id: firewall
+        shell: bash
+        run: |
+          runner_ip=$(curl --fail --silent https://api.ipify.org)
+          rule_name="gha-${GITHUB_RUN_ID}"
+          echo "RULE_NAME=$rule_name" >> "$GITHUB_ENV"
+          az postgres flexible-server firewall-rule create \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --name "$AZURE_DB_SERVER_NAME" \
+            --rule-name "$rule_name" \
+            --start-ip-address "$runner_ip" \
+            --end-ip-address "$runner_ip" \
+            --output none
+
+      - name: Descargar y normalizar el dataset
+        shell: bash
+        run: |
+          mkdir -p data/source
+          curl --fail --location "$DATASET_URL" --output data/source/proteccion_especial_raw.csv
+          python scripts/normalize_dataset.py \
+            --input data/source/proteccion_especial_raw.csv \
+            --output data/proteccion_especial.csv \
+            --snapshot-label "$DATASET_SNAPSHOT_LABEL"
+
+      - name: Ejecutar Liquibase validate
+        shell: bash
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            --env LIQUIBASE_COMMAND_PASSWORD="$DB_ADMIN_PASSWORD" \
+            liquibase/liquibase:4.31 \
+            --changelog-file=db/changelog/db.changelog-master.yaml \
+            --changelog-parameters="dataFile=/workspace/data/proteccion_especial.csv" \
+            --url="jdbc:postgresql://${AZURE_DB_SERVER_NAME}.postgres.database.azure.com:5432/${DB_NAME}?sslmode=require" \
+            --username="$DB_ADMIN_USERNAME" \
+            validate
+
+      - name: Ejecutar Liquibase update
+        shell: bash
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            --env LIQUIBASE_COMMAND_PASSWORD="$DB_ADMIN_PASSWORD" \
+            liquibase/liquibase:4.31 \
+            --changelog-file=db/changelog/db.changelog-master.yaml \
+            --changelog-parameters="dataFile=/workspace/data/proteccion_especial.csv" \
+            --url="jdbc:postgresql://${AZURE_DB_SERVER_NAME}.postgres.database.azure.com:5432/${DB_NAME}?sslmode=require" \
+            --username="$DB_ADMIN_USERNAME" \
+            update
+
+      - name: Quitar regla temporal del runner
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "${RULE_NAME:-}" ]; then
+            az postgres flexible-server firewall-rule delete \
+              --resource-group "$AZURE_RESOURCE_GROUP" \
+              --name "$AZURE_DB_SERVER_NAME" \
+              --rule-name "$RULE_NAME" \
+              --yes \
+              --output none || true
+          fi

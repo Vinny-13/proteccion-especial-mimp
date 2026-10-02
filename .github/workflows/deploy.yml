@@ -1,0 +1,62 @@
+name: Deploy - Reporte Power BI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - powerbi/ProteccionEspecial.pbix
+      - .github/workflows/deploy.yml
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publicar PBIX en un workspace
+    runs-on: ubuntu-latest
+    env:
+      PBI_WORKSPACE_ID: ${{ vars.PBI_WORKSPACE_ID }}
+      REPORT_FILE: powerbi/ProteccionEspecial.pbix
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validar artefacto de Power BI
+        shell: bash
+        run: |
+          test -n "$PBI_WORKSPACE_ID" || { echo "Falta la variable PBI_WORKSPACE_ID"; exit 1; }
+          test -f "$REPORT_FILE" || {
+            echo "Falta $REPORT_FILE. Guarda el informe creado en Power BI Desktop con ese nombre.";
+            exit 1;
+          }
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Solicitar token de Power BI
+        shell: bash
+        run: |
+          token=$(az account get-access-token \
+            --resource https://analysis.windows.net/powerbi/api \
+            --query accessToken --output tsv)
+          echo "PBI_TOKEN=$token" >> "$GITHUB_ENV"
+
+      - name: Importar PBIX en el workspace
+        shell: bash
+        run: |
+          curl --fail-with-body --location --request POST \
+            "https://api.powerbi.com/v1.0/myorg/groups/${PBI_WORKSPACE_ID}/imports?datasetDisplayName=ProteccionEspecial.pbix&nameConflict=CreateOrOverwrite" \
+            --header "Authorization: Bearer ${PBI_TOKEN}" \
+            --form "file=@${REPORT_FILE}" \
+            --output import-response.json
+          cat import-response.json
+
+      - name: Publicar enlace del workspace
+        run: echo "Reporte publicado en https://app.powerbi.com/groups/${PBI_WORKSPACE_ID}/reports" >> "$GITHUB_STEP_SUMMARY"
