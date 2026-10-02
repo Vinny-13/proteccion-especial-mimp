@@ -1,0 +1,12 @@
+{
+  "name": "center_name",
+  "dataType": "string",
+  "sourceColumn": "center_name",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

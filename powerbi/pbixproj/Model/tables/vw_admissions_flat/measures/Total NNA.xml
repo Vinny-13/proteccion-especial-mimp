@@ -1,0 +1,3 @@
+<Measure Name="Total NNA">
+  <FormatString>#,0</FormatString>
+</Measure>

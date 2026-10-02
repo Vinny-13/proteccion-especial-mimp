@@ -1,0 +1,12 @@
+{
+  "name": "service_code",
+  "dataType": "string",
+  "sourceColumn": "service_code",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

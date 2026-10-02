@@ -1,0 +1,113 @@
+{
+  "name": "mimp_sexo_departamento",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 40,
+        "y": 30,
+        "z": 1,
+        "width": 585,
+        "height": 270
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "clusteredColumnChart",
+    "projections": {
+      "Category": [
+        {
+          "queryRef": "vw_admissions_flat.department"
+        }
+      ],
+      "Y": [
+        {
+          "queryRef": "vw_admissions_flat.NNA hombres"
+        },
+        {
+          "queryRef": "vw_admissions_flat.NNA mujeres"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "department"
+          },
+          "Name": "vw_admissions_flat.department",
+          "NativeReferenceName": "department"
+        },
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "NNA hombres"
+          },
+          "Name": "vw_admissions_flat.NNA hombres",
+          "NativeReferenceName": "NNA hombres"
+        },
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "NNA mujeres"
+          },
+          "Name": "vw_admissions_flat.NNA mujeres",
+          "NativeReferenceName": "NNA mujeres"
+        }
+      ],
+      "OrderBy": [
+        {
+          "Direction": 2,
+          "Expression": {
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "a"
+                }
+              },
+              "Property": "NNA mujeres"
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'NNA por sexo y departamento'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

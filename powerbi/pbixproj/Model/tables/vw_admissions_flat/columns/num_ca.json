@@ -1,0 +1,12 @@
+{
+  "name": "num_ca",
+  "dataType": "int64",
+  "sourceColumn": "num_ca",
+  "summarizeBy": "sum",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

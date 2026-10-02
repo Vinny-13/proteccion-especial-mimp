@@ -1,0 +1,12 @@
+{
+  "name": "female_nna",
+  "dataType": "int64",
+  "sourceColumn": "female_nna",
+  "summarizeBy": "sum",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

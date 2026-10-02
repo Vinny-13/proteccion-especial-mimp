@@ -1,0 +1,12 @@
+{
+  "name": "entity_code",
+  "dataType": "string",
+  "sourceColumn": "entity_code",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

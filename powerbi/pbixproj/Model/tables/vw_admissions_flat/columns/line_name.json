@@ -1,0 +1,12 @@
+{
+  "name": "line_name",
+  "dataType": "string",
+  "sourceColumn": "line_name",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

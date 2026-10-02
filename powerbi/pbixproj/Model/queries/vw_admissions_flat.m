@@ -1,0 +1,6 @@
+let
+    Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Vinny-13/proteccion-especial-mimp/main/data/proteccion_especial.csv"), [Delimiter=",", Columns=32, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    ChangedType = Table.TransformColumnTypes(PromotedHeaders, {{"report_year", Int64.Type}, {"report_period", Text.Type}, {"report_date", Date.Type}, {"entity_code", Text.Type}, {"program_name", Text.Type}, {"line_code", Text.Type}, {"line_name", Text.Type}, {"service_code", Text.Type}, {"service_name", Text.Type}, {"ubigeo", Text.Type}, {"department", Text.Type}, {"province", Text.Type}, {"district", Text.Type}, {"center_code", Text.Type}, {"center_name", Text.Type}, {"num_ca", Int64.Type}, {"total_nna", Int64.Type}, {"male_nna", Int64.Type}, {"female_nna", Int64.Type}, {"age_0_5_total", Int64.Type}, {"age_0_5_male", Int64.Type}, {"age_0_5_female", Int64.Type}, {"age_6_11_total", Int64.Type}, {"age_6_11_male", Int64.Type}, {"age_6_11_female", Int64.Type}, {"age_12_17_total", Int64.Type}, {"age_12_17_male", Int64.Type}, {"age_12_17_female", Int64.Type}, {"age_18_plus_total", Int64.Type}, {"age_18_plus_male", Int64.Type}, {"age_18_plus_female", Int64.Type}, {"source_snapshot", Text.Type}})
+in
+    ChangedType

@@ -1,0 +1,66 @@
+{
+  "name": "mimp_total_nna",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 40,
+        "y": 30,
+        "z": 0,
+        "width": 270,
+        "height": 105
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "card",
+    "projections": {
+      "Values": [
+        {
+          "queryRef": "vw_admissions_flat.Total NNA"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "Total NNA"
+          },
+          "Name": "vw_admissions_flat.Total NNA",
+          "NativeReferenceName": "Total NNA"
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total NNA'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

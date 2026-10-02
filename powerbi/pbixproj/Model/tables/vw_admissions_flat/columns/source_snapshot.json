@@ -1,0 +1,12 @@
+{
+  "name": "source_snapshot",
+  "dataType": "string",
+  "sourceColumn": "source_snapshot",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

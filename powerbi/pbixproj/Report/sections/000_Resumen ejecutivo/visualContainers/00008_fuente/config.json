@@ -1,0 +1,96 @@
+{
+  "name": "mimp_fuente",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 730,
+        "y": 465,
+        "z": 2,
+        "width": 510,
+        "height": 180
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "tableEx",
+    "projections": {
+      "Values": [
+        {
+          "queryRef": "vw_admissions_flat.source_snapshot"
+        },
+        {
+          "queryRef": "vw_admissions_flat.report_date"
+        },
+        {
+          "queryRef": "vw_admissions_flat.Registros"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "source_snapshot"
+          },
+          "Name": "vw_admissions_flat.source_snapshot",
+          "NativeReferenceName": "source_snapshot"
+        },
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "report_date"
+          },
+          "Name": "vw_admissions_flat.report_date",
+          "NativeReferenceName": "report_date"
+        },
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "Registros"
+          },
+          "Name": "vw_admissions_flat.Registros",
+          "NativeReferenceName": "Registros"
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Corte de fuente'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

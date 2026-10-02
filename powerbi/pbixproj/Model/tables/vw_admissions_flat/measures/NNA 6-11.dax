@@ -1,0 +1,1 @@
+SUM ( vw_admissions_flat[age_6_11_total] )

@@ -1,0 +1,12 @@
+{
+  "name": "report_year",
+  "dataType": "int64",
+  "sourceColumn": "report_year",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

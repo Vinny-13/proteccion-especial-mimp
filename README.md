@@ -92,7 +92,7 @@ liquibase `
 
 ## 5. Power BI
 
-La especificación preparada está en [powerbi/README.md](powerbi/README.md), [powerbi/report-design.md](powerbi/report-design.md), [powerbi/power-query.m](powerbi/power-query.m) y [powerbi/measures.dax](powerbi/measures.dax).
+La especificación y los archivos fuente están en [powerbi/README.md](powerbi/README.md), [powerbi/report-design.md](powerbi/report-design.md), [powerbi/power-query.m](powerbi/power-query.m) y [powerbi/measures.dax](powerbi/measures.dax). También se incluye la plantilla compilada [powerbi/ProteccionEspecial.pbit](powerbi/ProteccionEspecial.pbit) y su fuente reproducible en [powerbi/pbixproj](powerbi/pbixproj).
 
 El informe debe tener como mínimo:
 
@@ -100,7 +100,7 @@ El informe debe tener como mínimo:
 - Página/dashboard 2: perfil territorial y etario con matriz, columnas por sexo/edad y detalle por centro.
 - Filtro: `report_year`, más `department` en la vista territorial.
 
-Guarda el PBIX como `powerbi/ProteccionEspecial.pbix`. Ese binario no se puede fabricar ni publicar desde este entorno sin Power BI Desktop y una cuenta/workspace del usuario; el workflow queda listo para ejecutarlo después de agregarlo.
+La plantilla PBIT se genera con `python scripts/build_powerbi_pbit.py powerbi/pbixproj powerbi/ProteccionEspecial.pbit`. Para producir el PBIX que acepta la API de importación, abre el PBIT en Power BI Desktop, selecciona **Cargar**, espera la actualización del CSV público y usa **Guardar como** `powerbi/ProteccionEspecial.pbix`. El workflow queda listo para importarlo después de configurar el workspace y la autenticación.
 
 ## 6. Publicación
 
@@ -112,7 +112,7 @@ Después de una ejecución exitosa:
 2. Completa en este README el enlace del repositorio GitHub.
 3. Completa el enlace del reporte publicado que devuelva Power BI Service.
 
-**URL del repositorio:** `PENDIENTE_DE_COMPLETAR`
+**URL del repositorio:** <https://github.com/Vinny-13/proteccion-especial-mimp>
 
 **URL del reporte publicado:** `PENDIENTE_DE_COMPLETAR`
 

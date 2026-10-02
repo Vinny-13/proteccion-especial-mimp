@@ -1,0 +1,98 @@
+{
+  "name": "mimp_departamentos",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 655,
+        "y": 165,
+        "z": 1,
+        "width": 585,
+        "height": 265
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "clusteredBarChart",
+    "projections": {
+      "Category": [
+        {
+          "queryRef": "vw_admissions_flat.department"
+        }
+      ],
+      "Y": [
+        {
+          "queryRef": "vw_admissions_flat.Total NNA"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "department"
+          },
+          "Name": "vw_admissions_flat.department",
+          "NativeReferenceName": "department"
+        },
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "Total NNA"
+          },
+          "Name": "vw_admissions_flat.Total NNA",
+          "NativeReferenceName": "Total NNA"
+        }
+      ],
+      "OrderBy": [
+        {
+          "Direction": 2,
+          "Expression": {
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "a"
+                }
+              },
+              "Property": "Total NNA"
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total NNA por departamento'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

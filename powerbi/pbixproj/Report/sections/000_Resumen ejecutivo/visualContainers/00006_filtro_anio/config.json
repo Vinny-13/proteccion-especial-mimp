@@ -1,0 +1,66 @@
+{
+  "name": "mimp_filtro_anio",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 40,
+        "y": 465,
+        "z": 2,
+        "width": 280,
+        "height": 180
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "slicer",
+    "projections": {
+      "Values": [
+        {
+          "queryRef": "vw_admissions_flat.report_year"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "report_year"
+          },
+          "Name": "vw_admissions_flat.report_year",
+          "NativeReferenceName": "report_year"
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Año reportado'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

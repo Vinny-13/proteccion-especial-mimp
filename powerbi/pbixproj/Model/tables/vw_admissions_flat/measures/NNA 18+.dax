@@ -1,0 +1,1 @@
+SUM ( vw_admissions_flat[age_18_plus_total] )

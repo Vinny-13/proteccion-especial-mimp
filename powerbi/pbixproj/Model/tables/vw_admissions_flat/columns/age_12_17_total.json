@@ -1,0 +1,12 @@
+{
+  "name": "age_12_17_total",
+  "dataType": "int64",
+  "sourceColumn": "age_12_17_total",
+  "summarizeBy": "sum",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

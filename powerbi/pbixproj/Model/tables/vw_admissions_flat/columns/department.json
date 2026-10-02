@@ -1,0 +1,12 @@
+{
+  "name": "department",
+  "dataType": "string",
+  "sourceColumn": "department",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

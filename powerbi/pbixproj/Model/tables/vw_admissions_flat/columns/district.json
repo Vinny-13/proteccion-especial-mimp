@@ -1,0 +1,12 @@
+{
+  "name": "district",
+  "dataType": "string",
+  "sourceColumn": "district",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "program_name",
+  "dataType": "string",
+  "sourceColumn": "program_name",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

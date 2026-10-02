@@ -1,8 +1,25 @@
 # Reporte Power BI
 
-El archivo binario `ProteccionEspecial.pbix` debe guardarse en esta carpeta después de construirlo en Power BI Desktop. El repositorio deja preparada la conexión, el modelo lógico, las medidas DAX y el diseño requerido; la creación del PBIX y su publicación requieren una cuenta de Power BI con acceso al workspace.
+El reporte tiene dos páginas y está preparado como fuente reproducible de Power BI. La plantilla compilada es `ProteccionEspecial.pbit`; el archivo `ProteccionEspecial.pbix` se obtiene después de abrir la plantilla en Power BI Desktop, cargar/actualizar los datos y guardar el resultado.
 
-## Conexión
+## Artefactos
+
+- `ProteccionEspecial.pbit`: plantilla compilada con pbi-tools Core.
+- `pbixproj/`: modelo, consulta M, medidas, páginas y visuales en formato fuente.
+- `../scripts/build_powerbi_pbit.py`: generador y compilador reproducible.
+- `power-query.m` y `measures.dax`: referencia legible de la conexión y las medidas.
+
+## Generar y convertir a PBIX
+
+Desde la raíz del repositorio:
+
+```powershell
+python scripts/build_powerbi_pbit.py powerbi/pbixproj powerbi/ProteccionEspecial.pbit
+```
+
+Abre `ProteccionEspecial.pbit` con Power BI Desktop, elige **Cargar** cuando solicite actualizar la consulta pública, y luego guarda como `powerbi/ProteccionEspecial.pbix`. El PBIT no contiene credenciales ni datos embebidos; la consulta usa el CSV normalizado del repositorio.
+
+## Conexión alternativa a PostgreSQL
 
 1. En Power BI Desktop instala/activa el conector PostgreSQL.
 2. Crea los parámetros `pServer` y `pDatabase`.
@@ -26,7 +43,7 @@ El archivo binario `ProteccionEspecial.pbix` debe guardarse en esta carpeta desp
 - Tabla de detalle: centro, provincia, distrito, servicio y total.
 - Filtro obligatorio del informe: `report_year` o `department`.
 
-Guarda el archivo como `powerbi/ProteccionEspecial.pbix`. El workflow `deploy.yml` lo importa mediante la API REST de Power BI en el workspace indicado por la variable `PBI_WORKSPACE_ID`.
+El workflow `deploy.yml` importa `powerbi/ProteccionEspecial.pbix` mediante la API REST de Power BI en el workspace indicado por `PBI_WORKSPACE_ID`. La API de importación requiere un PBIX hidratado, no la plantilla PBIT.
 
 ## Publicación y permisos
 

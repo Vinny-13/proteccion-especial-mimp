@@ -1,0 +1,28 @@
+{
+  "name": "ProteccionEspecial",
+  "compatibilityLevel": 1550,
+  "model": {
+    "culture": "es-PE",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "es-PE",
+    "relationships": [],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.158.1177.0 (25.09)"
+      },
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"vw_admissions_flat\"]"
+      }
+    ]
+  }
+}

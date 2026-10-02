@@ -1,0 +1,12 @@
+{
+  "name": "ubigeo",
+  "dataType": "string",
+  "sourceColumn": "ubigeo",
+  "summarizeBy": "none",
+  "annotations": [
+    {
+      "name": "SummarizationSetBy",
+      "value": "User"
+    }
+  ]
+}

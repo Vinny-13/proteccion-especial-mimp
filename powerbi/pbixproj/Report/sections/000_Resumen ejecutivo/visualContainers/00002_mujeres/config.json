@@ -1,0 +1,66 @@
+{
+  "name": "mimp_mujeres",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 630,
+        "y": 30,
+        "z": 0,
+        "width": 270,
+        "height": 105
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "card",
+    "projections": {
+      "Values": [
+        {
+          "queryRef": "vw_admissions_flat.NNA mujeres"
+        }
+      ]
+    },
+    "prototypeQuery": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "a",
+          "Entity": "vw_admissions_flat",
+          "Type": 0
+        }
+      ],
+      "Select": [
+        {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Source": "a"
+              }
+            },
+            "Property": "NNA mujeres"
+          },
+          "Name": "vw_admissions_flat.NNA mujeres",
+          "NativeReferenceName": "NNA mujeres"
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {},
+    "vcObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'NNA mujeres'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
