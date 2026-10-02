@@ -1,10 +1,11 @@
 # Reporte Power BI
 
-El reporte tiene dos páginas y está preparado como fuente reproducible de Power BI. La plantilla compilada es `ProteccionEspecial.pbit`; el archivo `ProteccionEspecial.pbix` se obtiene después de abrir la plantilla en Power BI Desktop, cargar/actualizar los datos y guardar el resultado.
+El reporte tiene dos páginas y está preparado como fuente reproducible de Power BI. La plantilla compilada es `ProteccionEspecial.pbit` y el PBIX hidratado final es `ProteccionEspecial.pbix`.
 
 ## Artefactos
 
 - `ProteccionEspecial.pbit`: plantilla compilada con pbi-tools Core.
+- `ProteccionEspecial.pbix`: archivo hidratado guardado desde Power BI Desktop, listo para importarse en Power BI Service.
 - `pbixproj/`: modelo, consulta M, medidas, páginas y visuales en formato fuente.
 - `../scripts/build_powerbi_pbit.py`: generador y compilador reproducible.
 - `power-query.m` y `measures.dax`: referencia legible de la conexión y las medidas.
